@@ -4,11 +4,72 @@
   <meta charset="UTF-8">
   <title>Где живёт лучшая девочка на свете?</title>
   <meta name="description" content="X=4218123, Y=5912312 — вот координаты самой любимой.">
+  <link rel="icon" href="https://em-content.zobj.net/source/apple/391/tangerine_1f34a.png" type="image/png">
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 100px;
+      background: #fffaf5;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    h1, p {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.8s forwards;
+    }
+
+    h1 { animation-delay: 0.3s; }
+    p:nth-of-type(1) { animation-delay: 0.6s; }
+    p:nth-of-type(2) { animation-delay: 0.9s; }
+    p:nth-of-type(3) { animation-delay: 1.2s; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #secret {
+      margin-top: 50px;
+      display: none;
+    }
+
+    #secret img {
+      max-width: 80%;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    .clickable {
+      cursor: pointer;
+      text-decoration: underline;
+      color: #d26e00;
+    }
+  </style>
 </head>
-<body style="font-family: sans-serif; text-align: center; padding-top: 100px;">
+<body>
   <h1>🍊 Где живёт лучшая девочка на свете?</h1>
-  <p style="font-size: 1.5em;">Конечно, по координатам:</p>
-  <p style="font-size: 2em; font-weight: bold;">X=4218123<br>Y=5912312</p>
+  <p>Конечно, по координатам:</p>
+  <p class="clickable" onclick="showSecret()">X=4218123<br>Y=5912312</p>
   <p>Точка её уюта и любви 🧡</p>
+
+  <div id="secret">
+    <p>🥹 Ты правда нажала... ну ты мандаринка!</p>
+    <img src="https://i.imgur.com/XWTpX9R.jpg" alt="секрет">
+  </div>
+
+  <script>
+    function showSecret() {
+      document.getElementById('secret').style.display = 'block';
+    }
+  </script>
 </body>
 </html>
