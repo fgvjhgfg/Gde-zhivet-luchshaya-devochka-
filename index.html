@@ -1,10 +1,95 @@
-<div id="secret">
-  <p>Ты понимаешь, что это конфиденциальные данные?</p>
-  <button class="reveal" onclick="revealImage()">Не нарушай личное пространство</button>
-  <img src="" alt="секрет" id="secret-img" style="display:none;">
-  <p id="stalker-text" style="display:none; margin-top:15px; font-weight:bold; color:#b33a00;">
-    Ты и правда нажал, долбанный сталкер
-  </p>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Секретная страница 💛</title>
+  <meta name="description" content="Секретное место только для нас">
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 100px;
+      background: #fffaf5;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+    h1, p {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.8s forwards;
+    }
+    h1 { animation-delay: 0.3s; }
+    p:nth-of-type(1) { animation-delay: 0.6s; }
+    p:nth-of-type(2) { animation-delay: 0.9s; }
+    p:nth-of-type(3) { animation-delay: 1.2s; }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    #secret {
+      margin-top: 50px;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+    #secret.show {
+      display: block;
+      opacity: 1;
+    }
+    #secret img {
+      max-width: 80%;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      margin-top: 20px;
+    }
+    #stalker-text {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #b33a00;
+      display: none;
+    }
+    .clickable {
+      cursor: pointer;
+      text-decoration: underline;
+      color: #d26e00;
+    }
+    button.reveal {
+      padding: 10px 20px;
+      background: #ffa64d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    button.reveal:hover {
+      background: #ff8c1a;
+    }
+  </style>
+</head>
+<body>
+
+<div id="login">
+  <h1>🗝 Продолжи фразу:</h1>
+  <p><i>Шо за ... ?</i></p>
+  <input type="password" id="password" placeholder="Ответ">
+  <button onclick="checkPassword()">Проверить</button>
+</div>
+
+<div id="content" style="display:none;">
+  <h1>Где живёт лучшая девочка на свете?</h1>
+  <p>Конечно же тут:</p>
+  <p class="clickable" onclick="showSecret()">X=4218123<br>Y=5912312</p>
+  <p>Нажмите, чтобы посмотреть</p>
+
+  <div id="secret">
+    <p>Ты понимаешь, что это конфиденциальные данные?</p>
+    <button class="reveal" onclick="revealImage()">Не нарушай личное пространство</button>
+    <p id="stalker-text">Ты и правда нажал долбанный сталкер</p>
+    <img src="" alt="секрет" id="secret-img" style="display:none;">
+  </div>
 </div>
 
 <script>
@@ -23,8 +108,12 @@
   }
 
   function revealImage() {
-    document.getElementById('secret-img').src = "https://files.catbox.moe/134i0f.jpg";
-    document.getElementById('secret-img').style.display = "block";
     document.getElementById('stalker-text').style.display = "block";
+    const img = document.getElementById('secret-img');
+    img.src = "https://files.catbox.moe/134i0f.jpg";
+    img.style.display = "block";
   }
 </script>
+
+</body>
+</html>
