@@ -1,3 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Секретная страница 💛</title>
+<style>
+  body {
+    margin: 0;
+    font-family: sans-serif;
+    text-align: center;
+    padding-top: 100px;
+    background: #121212;
+    color: #f0f0f0;
+    transition: background 0.8s ease, color 0.8s ease;
+  }
+  h1, p {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.8s forwards;
+  }
+  h1 { animation-delay: 0.3s; }
+  p:nth-of-type(1) { animation-delay: 0.6s; }
+  p:nth-of-type(2) { animation-delay: 0.9s; }
+  p:nth-of-type(3) { animation-delay: 1.2s; }
+  @keyframes slideUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  input, button {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 6px;
+    border: none;
+  }
+  #login button {
+    background: #ff9800;
+    color: white;
+    cursor: pointer;
+  }
+  #content { display: none; }
+  .clickable {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #ffb74d;
+  }
+
+  /* Секретный блок */
+  #secret {
+    margin-top: 50px;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 12px;
+  }
+  #secret.show {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Светлая карточка */
+  .info-card {
+    background: #fff;
+    color: #000;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  }
+  .info-card p {
+    font-weight: 900;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  .info-card button {
+    padding: 10px 20px;
+    background: #ffa64d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  .info-card button:hover {
+    background: #ff8c1a;
+  }
+
+  /* Мандариновый фон */
+  .orange-theme {
+    background-color: #ffe5b4;
+    background-image: url('https://files.catbox.moe/psmil7.png');
+    background-size: 100px;
+    background-repeat: repeat;
+    color: #333;
+  }
+  #secret.orange-bg {
+    background-color: #ffe5b4;
+    background-image: url('https://files.catbox.moe/psmil7.png');
+    background-size: 100px;
+    background-repeat: repeat;
+    padding: 20px;
+  }
+
+  /* Фото */
+  #secret img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    margin-top: 15px;
+  }
+
+  /* Сталкер-текст */
+  #stalker-text {
+    display: none;
+    font-size: 1.6em;
+    font-weight: bold;
+    text-align: center;
+    margin: 30px auto;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 10px;
+    width: fit-content;
+  }
+  #stalker-text span {
+    color: red;
+    text-shadow:
+      -1px -1px 0 white,
+       1px -1px 0 white,
+      -1px  1px 0 white,
+       1px  1px 0 white;
+    animation: fadeText 1.2s infinite;
+  }
+  @keyframes fadeText {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+<div id="login">
+  <h1>🗝 Продолжи фразу:</h1>
+  <p><i>Шо за ... ?</i></p>
+  <input type="password" id="password" placeholder="Ответ">
+  <button onclick="checkPassword()">Проверить</button>
+</div>
+
+<div id="content">
+  <h1>Где живёт лучшая девочка на свете?</h1>
+  <p>Конечно же тут:</p>
+  <p class="clickable" onclick="showSecret()">X=4218123<br>Y=5912312</p>
+  <p>Нажмите, чтобы посмотреть</p>
+
+  <div id="secret">
+    <div class="info-card">
+      <p>Вы осознаёте, что это конфиденциальная информация?</p>
+      <button onclick="revealImage()">Пожалуйста, не вторгайтесь в частную жизнь</button>
+    </div>
+    <p id="stalker-text"><span>🚨 Ты и правда нажал долбанный сталкер</span></p>
+    <img src="" alt="секрет" id="secret-img" style="display:none;">
+  </div>
+</div>
+
 <script>
 function checkPassword() {
   const pass = document.getElementById('password').value.trim().toLowerCase();
@@ -20,8 +187,8 @@ function revealImage() {
   // убираем светлую карточку
   document.querySelector('.info-card').style.display = "none";
 
-  // убираем заголовок, подзаголовок и координаты
-  document.querySelectorAll('#content > h1, #content > p').forEach(el => {
+  // убираем заголовок, подзаголовок, координаты и подпись
+  document.querySelectorAll('#content > h1, #content > p:not(#secret p)').forEach(el => {
     el.style.display = "none";
   });
 
@@ -41,3 +208,5 @@ document.addEventListener('keydown', function(event) {
   }
 });
 </script>
+</body>
+</html>
