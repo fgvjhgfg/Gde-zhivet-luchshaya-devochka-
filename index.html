@@ -60,9 +60,10 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    background: rgba(18,18,18,0.9);
+    background: none; /* фон убран */
     padding: 20px;
     border-radius: 12px;
+    color: #000; /* читаемый текст */
   }
 
   #secret.show {
@@ -100,6 +101,17 @@
     background-repeat: repeat;
     color: #333;
   }
+
+  /* Красный сталкер-текст с иконкой */
+  #stalker-text {
+    display: none;
+    color: red;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  #stalker-text::before {
+    content: "🚨 ";
+  }
 </style>
 </head>
 <body>
@@ -120,7 +132,7 @@
   <div id="secret">
     <p>Ты понимаешь, что это конфиденциальные данные?</p>
     <button class="reveal" onclick="revealImage()">Не нарушай личное пространство</button>
-    <p id="stalker-text" style="display:none;color:#ff9800;font-weight:bold;">Ты и правда нажал долбанный сталкер</p>
+    <p id="stalker-text">Ты и правда нажал долбанный сталкер</p>
     <img src="" alt="секрет" id="secret-img" style="display:none;">
   </div>
 </div>
