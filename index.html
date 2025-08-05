@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Секретная страница 💛</title>
+  <meta name="description" content="Секретное место только для нас">
+  <style>
+    /* твои стили */
+  </style>
+</head>
+<body>
+
+<!-- твой HTML контент -->
+
 <script>
   function checkPassword() {
     const pass = document.getElementById('password').value.trim().toLowerCase();
@@ -15,8 +29,6 @@
 
   function revealImage() {
     const secretDiv = document.getElementById('secret');
-    
-    // Создаём и добавляем текст
     const stalkerText = document.createElement('p');
     stalkerText.textContent = "Ты и правда нажал, долбанный сталкер";
     stalkerText.style.marginTop = "15px";
@@ -24,9 +36,11 @@
     stalkerText.style.color = "#b33a00";
     secretDiv.appendChild(stalkerText);
 
-    // Показываем фото
     const img = document.getElementById('secret-img');
     img.src = "https://files.catbox.moe/134i0f.jpg";
     img.style.display = "block";
   }
 </script>
+
+</body>
+</html>
