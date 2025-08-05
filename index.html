@@ -140,4 +140,33 @@
 <script>
 function checkPassword() {
   const pass = document.getElementById('password').value.trim().toLowerCase();
-  if
+  if (pass === "котик") {
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  } else {
+    alert("Неверно. Вызываю полицию");
+  }
+}
+
+function showSecret() {
+  document.body.classList.add('orange-theme');
+  document.getElementById('secret').classList.add('show');
+}
+
+function revealImage() {
+  document.getElementById('stalker-text').style.display = "block";
+  const img = document.getElementById('secret-img');
+  img.src = "https://files.catbox.moe/134i0f.jpg";
+  img.style.display = "block";
+}
+
+// Глобальный обработчик для Enter
+document.addEventListener('keydown', function(event) {
+  if (event.key === "Enter" && document.getElementById('login').style.display !== 'none') {
+    checkPassword();
+  }
+});
+</script>
+
+</body>
+</html>
