@@ -98,7 +98,7 @@
     background-repeat: repeat;
     color: #333;
   }
-  /* Красный сталкер-текст с полупрозрачным фоном и белой обводкой */
+  /* Красный сталкер-текст с полупрозрачным фоном, белой обводкой и миганием */
   #stalker-text {
     display: none;
     color: red;
@@ -116,9 +116,15 @@
        1px -1px 0 white,
       -1px  1px 0 white,
        1px  1px 0 white;
+
+    animation: blink 1.5s infinite ease-in-out;
   }
   #stalker-text::before {
     content: "🚨 ";
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
   }
 </style>
 </head>
