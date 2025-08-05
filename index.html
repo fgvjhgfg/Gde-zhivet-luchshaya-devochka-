@@ -112,12 +112,21 @@
     color: #333;
   }
 
-  /* Красный сталкер-текст с иконкой */
+  /* Красный сталкер-текст с эффектом стекла и иконкой */
   #stalker-text {
     display: none;
     color: red;
     font-weight: bold;
     font-size: 1.2em;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.4); /* тёмный полупрозрачный фон */
+    backdrop-filter: blur(6px); /* размытие фона */
+    -webkit-backdrop-filter: blur(6px); /* поддержка для Safari */
+    border-radius: 6px;
+    text-shadow: 1px 1px 2px black; /* тень для читаемости */
+    border: 2px solid white; /* белая обводка */
+    display: inline-block;
+    margin-top: 10px;
   }
   #stalker-text::before {
     content: "🚨 ";
@@ -175,6 +184,11 @@ document.addEventListener('keydown', function(event) {
   if (event.key === "Enter" && document.getElementById('login').style.display !== 'none') {
     checkPassword();
   }
+});
+</script>
+
+</body>
+</html>  }
 });
 </script>
 
