@@ -1,84 +1,106 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Секретная страница 💛</title>
-  <meta name="description" content="Секретное место только для нас">
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding-top: 100px;
-      margin: 0;
-      background: #121212;
-      color: #f0f0f0;
-      animation: fadeIn 1.2s ease-in-out;
-    }
-    h1, p {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: slideUp 0.8s forwards;
-    }
-    h1 { animation-delay: 0.3s; }
-    p:nth-of-type(1) { animation-delay: 0.6s; }
-    p:nth-of-type(2) { animation-delay: 0.9s; }
-    p:nth-of-type(3) { animation-delay: 1.2s; }
+<meta charset="UTF-8">
+<title>Секретная страница 💛</title>
+<style>
+  body {
+    margin: 0;
+    font-family: sans-serif;
+    text-align: center;
+    padding-top: 100px;
+    background: #121212;
+    color: #f0f0f0;
+    transition: background 0.8s ease, color 0.8s ease;
+  }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes slideUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
+  h1, p {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.8s forwards;
+  }
+  h1 { animation-delay: 0.3s; }
+  p:nth-of-type(1) { animation-delay: 0.6s; }
+  p:nth-of-type(2) { animation-delay: 0.9s; }
+  p:nth-of-type(3) { animation-delay: 1.2s; }
 
-    /* Когда фон мандариновый */
-    body.orange-bg {
-      background: #ffe5b4 url('https://i.ibb.co/VNYbf2S/mandarin.png') repeat-y left center,
-                  #ffe5b4 url('https://i.ibb.co/VNYbf2S/mandarin.png') repeat-y right center;
-      background-size: 80px auto, 80px auto;
-      color: #222;
-    }
+  @keyframes slideUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-    #secret {
-      margin-top: 50px;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.8s ease-in-out;
-    }
-    #secret.show {
-      display: block;
-      opacity: 1;
-    }
-    #secret img {
-      max-width: 80%;
-      border-radius: 20px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      margin-top: 20px;
-    }
-    .clickable {
-      cursor: pointer;
-      text-decoration: underline;
-      color: #ffa64d;
-    }
-    button.reveal {
-      padding: 10px 20px;
-      background: #ffa64d;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1em;
-    }
-    button.reveal:hover {
-      background: #ff8c1a;
-    }
-    .stalker-text {
-      font-weight: bold;
-      margin-top: 10px;
-      color: #d26e00;
-    }
-  </style>
+  input, button {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 6px;
+    border: none;
+  }
+
+  #login button {
+    background: #ff9800;
+    color: white;
+    cursor: pointer;
+  }
+
+  #content {
+    display: none;
+  }
+
+  .clickable {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #ffb74d;
+  }
+
+  /* Секретный блок */
+  #secret {
+    margin-top: 50px;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(18,18,18,0.9);
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  #secret.show {
+    display: block;
+    opacity: 1;
+  }
+
+  #secret img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    margin-top: 15px;
+  }
+
+  button.reveal {
+    padding: 10px 20px;
+    background: #ffa64d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+
+  button.reveal:hover {
+    background: #ff8c1a;
+  }
+
+  /* Фон с мандаринками */
+  .orange-theme {
+    background-color: #ffe5b4;
+    background-image: url('https://i.ibb.co/t3R8nFL/mandarin.png');
+    background-size: 100px;
+    background-repeat: repeat;
+    color: #333;
+  }
+</style>
 </head>
 <body>
 
@@ -89,7 +111,7 @@
   <button onclick="checkPassword()">Проверить</button>
 </div>
 
-<div id="content" style="display:none;">
+<div id="content">
   <h1>Где живёт лучшая девочка на свете?</h1>
   <p>Конечно же тут:</p>
   <p class="clickable" onclick="showSecret()">X=4218123<br>Y=5912312</p>
@@ -98,33 +120,33 @@
   <div id="secret">
     <p>Ты понимаешь, что это конфиденциальные данные?</p>
     <button class="reveal" onclick="revealImage()">Не нарушай личное пространство</button>
-    <div class="stalker-text" id="stalker-text" style="display:none;">Ты и правда нажал долбанный сталкер</div>
+    <p id="stalker-text" style="display:none;color:#ff9800;font-weight:bold;">Ты и правда нажал долбанный сталкер</p>
     <img src="" alt="секрет" id="secret-img" style="display:none;">
   </div>
 </div>
 
 <script>
-  function checkPassword() {
-    const pass = document.getElementById('password').value.trim().toLowerCase();
-    if (pass === "котик") {
-      document.getElementById('login').style.display = 'none';
-      document.getElementById('content').style.display = 'block';
-    } else {
-      alert("Неверно. Вызываю полицию");
-    }
+function checkPassword() {
+  const pass = document.getElementById('password').value.trim().toLowerCase();
+  if (pass === "котик") {
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  } else {
+    alert("Неверно. Вызываю полицию");
   }
+}
 
-  function showSecret() {
-    document.body.classList.add('orange-bg'); // Меняем фон на мандариновый
-    document.getElementById('secret').classList.add('show');
-  }
+function showSecret() {
+  document.body.classList.add('orange-theme');
+  document.getElementById('secret').classList.add('show');
+}
 
-  function revealImage() {
-    const img = document.getElementById('secret-img');
-    img.src = "https://files.catbox.moe/134i0f.jpg";
-    img.style.display = "block";
-    document.getElementById('stalker-text').style.display = "block";
-  }
+function revealImage() {
+  document.getElementById('stalker-text').style.display = "block";
+  const img = document.getElementById('secret-img');
+  img.src = "https://files.catbox.moe/134i0f.jpg";
+  img.style.display = "block";
+}
 </script>
 
 </body>
