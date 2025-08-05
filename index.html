@@ -95,7 +95,7 @@
   /* Фон с мандаринками */
   .orange-theme {
     background-color: #ffe5b4;
-    background-image: url('https://i.ibb.co/t3R8nFL/mandarin.png');
+    background-image: url('https://files.catbox.moe/psmil7.png');
     background-size: 100px;
     background-repeat: repeat;
     color: #333;
@@ -126,8 +126,9 @@
 </div>
 
 <script>
-document.getElementById('password').addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
+document.getElementById("password").addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
     checkPassword();
   }
 });
