@@ -98,7 +98,7 @@
     background-repeat: repeat;
     color: #333;
   }
-  /* Красный сталкер-текст с иконкой + эффект стекла */
+  /* Красный сталкер-текст с иконкой + эффект стекла + белая обводка */
   #stalker-text {
     display: none;
     color: red;
@@ -110,6 +110,8 @@
     background: rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+
+    -webkit-text-stroke: 0.5px white; /* тонкая белая обводка */
   }
   #stalker-text::before {
     content: "🚨 ";
