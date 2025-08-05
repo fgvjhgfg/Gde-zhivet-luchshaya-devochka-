@@ -1,3 +1,12 @@
+<div id="secret">
+  <p>Ты понимаешь, что это конфиденциальные данные?</p>
+  <button class="reveal" onclick="revealImage()">Не нарушай личное пространство</button>
+  <img src="" alt="секрет" id="secret-img" style="display:none;">
+  <p id="stalker-text" style="display:none; margin-top:15px; font-weight:bold; color:#b33a00;">
+    Ты и правда нажал, долбанный сталкер
+  </p>
+</div>
+
 <script>
   function checkPassword() {
     const pass = document.getElementById('password').value.trim().toLowerCase();
@@ -14,13 +23,8 @@
   }
 
   function revealImage() {
-    // Показать фото
-    const img = document.getElementById('secret-img');
-    img.src = "https://files.catbox.moe/134i0f.jpg";
-    img.style.display = "block";
-
-    // Показать текст (добавлен в HTML заранее, просто был скрыт)
-    const stalkerText = document.getElementById('stalker-text');
-    stalkerText.style.display = 'block';
+    document.getElementById('secret-img').src = "https://files.catbox.moe/134i0f.jpg";
+    document.getElementById('secret-img').style.display = "block";
+    document.getElementById('stalker-text').style.display = "block";
   }
 </script>
