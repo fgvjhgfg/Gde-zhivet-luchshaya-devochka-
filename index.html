@@ -1,4 +1,9 @@
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><title>Секретная страница 💛</title><style>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Секретная страница 💛</title>
+<style>
   body {
     margin: 0;
     font-family: sans-serif;
@@ -99,11 +104,6 @@
     color: red;
     font-weight: bold;
     font-size: 1.2em;
-    padding: 6px 12px;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
     text-shadow:
       -1px -1px 0 white,
        1px -1px 0 white,
@@ -113,25 +113,29 @@
   #stalker-text::before {
     content: "🚨 ";
   }
-</style></head><body>
+</style>
+</head>
+<body>
 <div id="login">
   <h1>🗝 Продолжи фразу:</h1>
   <p><i>Шо за ... ?</i></p>
   <input type="password" id="password" placeholder="Ответ">
   <button onclick="checkPassword()">Проверить</button>
 </div>
+
 <div id="content">
   <h1>Где живёт лучшая девочка на свете?</h1>
   <p>Конечно же тут:</p>
   <p class="clickable" onclick="showSecret()">X=4218123<br>Y=5912312</p>
   <p>Нажмите, чтобы посмотреть</p>
   <div id="secret">
-    <p>Ты понимаешь, что это конфиденциальные данные?</p>
-    <button class="reveal" onclick="revealImage()">Не нарушай личное пространство</button>
+    <p>Вы осознаёте, что это конфиденциальная информация?</p>
+    <button class="reveal" onclick="revealImage()">Не вторгайтесь в чужую личную жизнь</button>
     <p id="stalker-text">Ты и правда нажал долбанный сталкер</p>
     <img src="" alt="секрет" id="secret-img" style="display:none;">
   </div>
 </div>
+
 <script>
 function checkPassword() {
   const pass = document.getElementById('password').value.trim().toLowerCase();
@@ -142,20 +146,25 @@ function checkPassword() {
     alert("Неверно. Вызываю полицию");
   }
 }
+
 function showSecret() {
   document.body.classList.add('orange-theme');
   document.getElementById('secret').classList.add('show', 'orange-bg');
 }
+
 function revealImage() {
   document.getElementById('stalker-text').style.display = "block";
   const img = document.getElementById('secret-img');
   img.src = "https://files.catbox.moe/134i0f.jpg";
   img.style.display = "block";
 }
+
 // Глобальный обработчик для Enter
 document.addEventListener('keydown', function(event) {
   if (event.key === "Enter" && document.getElementById('login').style.display !== 'none') {
     checkPassword();
   }
 });
-</script></body></html>
+</script>
+</body>
+</html>
