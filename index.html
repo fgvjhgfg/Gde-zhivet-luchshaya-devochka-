@@ -113,14 +113,12 @@
     margin-top: 15px;  
   }  
 
-  /* Красный сталкер-текст с постоянным стеклом */  
+  /* Красный сталкер-текст с постоянным стеклом, мигает только текст */  
   #stalker-text {  
     display: none;  
     font-size: 1.6em;  
     font-weight: bold;  
     text-align: center;  
-    color: red;  
-    animation: fadeText 2s infinite; /* Плавная анимация только текста */  
     margin: 30px auto;  
     padding: 10px 20px;  
     background: rgba(0, 0, 0, 0.4); /* статичный фон */  
@@ -129,8 +127,13 @@
     border-radius: 10px;  
     width: fit-content;  
   }  
+  #stalker-text span {  
+    color: red;  
+    animation: fadeText 2s infinite;  
+  }  
   #stalker-text::before {  
     content: "🚨 ";  
+    color: red;  
   }  
   @keyframes fadeText {  
     0%, 100% { opacity: 0; }  
@@ -149,7 +152,7 @@
 <div id="content">  
   <h1>Где живёт лучшая девочка на свете?</h1>  
   <p>Конечно же тут:</p>  
-  <p class="clickable" onclick="showSecret()">X=4218123<br>Y=5912312</p>  
+  <p class="clickable" onclick="showSecret()">X=6179634<br>Y=7438992</p>  
   <p>Нажмите, чтобы посмотреть</p>  
 
   <div id="secret">  
@@ -157,7 +160,7 @@
       <p>Вы осознаёте, что это конфиденциальная информация?</p>  
       <button onclick="revealImage()">Пожалуйста, не вторгайтесь в частную жизнь</button>  
     </div>  
-    <p id="stalker-text">Ты и правда нажал долбанный сталкер</p>  
+    <p id="stalker-text"><span>Ты и правда нажал долбанный сталкер</span></p>  
     <img src="" alt="секрет" id="secret-img" style="display:none;">  
   </div>  
 </div>  
