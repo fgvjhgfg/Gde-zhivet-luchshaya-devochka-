@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Где живёт лучшая девочка на свете?</title>
   <meta name="description" content="X=4218123, Y=5912312 — вот координаты самой любимой.">
-  <img src="https://files.catbox.moe/134i0f.jpg" alt="секрет">"
   <style>
     body {
       font-family: sans-serif;
@@ -40,6 +39,13 @@
     #secret {
       margin-top: 50px;
       display: none;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    #secret.show {
+      display: block;
+      opacity: 1;
     }
 
     #secret img {
@@ -56,19 +62,22 @@
   </style>
 </head>
 <body>
-  <h1>🍊 Где живёт лучшая девочка на свете?</h1>
-  <p>Конечно, по координатам:</p>
+  <h1>Где живёт лучшая девочка на свете?</h1>
+  <p>Конечно, тут:</p>
   <p class="clickable" onclick="showSecret()">X=4218123<br>Y=5912312</p>
-  <p>Точка её уюта и любви 🧡</p>
+  <p>Узнать точнее нажми на координаты</p>
 
   <div id="secret">
-    <p>🥹 Ты правда нажала... ну ты мандаринка!</p>
-    <img src="https://i.imgur.com/XWTpX9R.jpg" alt="секрет">
+    <p>🥹 Ты и правда нажал, долбанны сталкер</p>
+    <img src="" alt="секрет" id="secret-img">
   </div>
 
   <script>
     function showSecret() {
-      document.getElementById('secret').style.display = 'block';
+      const secretDiv = document.getElementById('secret');
+      const img = document.getElementById('secret-img');
+      img.src = "https://files.catbox.moe/134i0f.jpg";
+      secretDiv.classList.add('show');
     }
   </script>
 </body>
