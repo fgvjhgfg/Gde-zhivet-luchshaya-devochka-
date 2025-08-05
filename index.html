@@ -33,22 +33,40 @@
       display: none;
       opacity: 0;
       transition: opacity 0.8s ease-in-out;
+      padding: 20px;
+      border-radius: 15px;
+      background: #fff4e6;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.08);
     }
     #secret.show {
       display: block;
       opacity: 1;
     }
     #secret img {
-      max-width: 80%;
-      border-radius: 20px;
+      max-width: 100%;
+      border-radius: 15px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
       margin-top: 20px;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+    #secret img.show {
+      opacity: 1;
     }
     #stalker-text {
       margin-top: 15px;
       font-weight: bold;
       color: #b33a00;
       display: none;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+    #stalker-text.show {
+      display: block;
+      opacity: 1;
     }
     .clickable {
       cursor: pointer;
@@ -88,7 +106,7 @@
     <p>Ты понимаешь, что это конфиденциальные данные?</p>
     <button class="reveal" onclick="revealImage()">Не нарушай личное пространство</button>
     <p id="stalker-text">Ты и правда нажал долбанный сталкер</p>
-    <img src="" alt="секрет" id="secret-img" style="display:none;">
+    <img src="" alt="секрет" id="secret-img">
   </div>
 </div>
 
@@ -108,10 +126,12 @@
   }
 
   function revealImage() {
-    document.getElementById('stalker-text').style.display = "block";
+    const text = document.getElementById('stalker-text');
     const img = document.getElementById('secret-img');
+
+    text.classList.add('show');
     img.src = "https://files.catbox.moe/134i0f.jpg";
-    img.style.display = "block";
+    img.classList.add('show');
   }
 </script>
 
