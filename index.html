@@ -2,118 +2,131 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Где живёт лучшая девочка?</title>
+<title>Секретная страница 💛</title>
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #121212; /* тёмная тема по умолчанию */
-  color: #ffffff;
-  text-align: center;
-  transition: background 0.6s ease;
-}
+  body {
+    margin: 0;
+    font-family: sans-serif;
+    text-align: center;
+    padding-top: 100px;
+    background: #121212;
+    color: #f0f0f0;
+    transition: background 0.8s ease, color 0.8s ease;
+  }
 
-/* Паттерн мандаринок (Base64) */
-body.orange-theme {
-  background-color: #ffe5b4;
-  background-image: url("data:image/png;base64,PUT_YOUR_BASE64_MANDARINKA_HERE");
-  background-repeat: repeat;
-  color: #000000;
-}
+  h1, p {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.8s forwards;
+  }
+  h1 { animation-delay: 0.3s; }
+  p:nth-of-type(1) { animation-delay: 0.6s; }
+  p:nth-of-type(2) { animation-delay: 0.9s; }
+  p:nth-of-type(3) { animation-delay: 1.2s; }
 
-/* Ссылки */
-a {
-  color: #ff9800;
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
+  @keyframes slideUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-/* Кнопка */
-button {
-  background-color: #ff9800;
-  border: none;
-  padding: 10px 20px;
-  color: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1em;
-}
-button:hover {
-  background-color: #e68900;
-}
+  input, button {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 6px;
+    border: none;
+  }
 
-/* Секретный блок */
-#secret {
-  margin-top: 30px;
-  display: none;
-  opacity: 0;
-  transition: opacity 0.8s ease-in-out;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px;
-  background: none; /* убран фон */
-  color: #000; /* читаемый текст */
-}
+  #login button {
+    background: #ff9800;
+    color: white;
+    cursor: pointer;
+  }
 
-#secret.show {
-  display: block;
-  opacity: 1;
-}
+  #content {
+    display: none;
+  }
 
-#secret img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  margin-top: 15px;
-}
+  .clickable {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #ffb74d;
+  }
 
-/* Сталкер-текст */
-#stalker-text {
-  display: none;
-  color: red;
-  font-weight: bold;
-  font-size: 1.2em;
-  margin-top: 15px;
-}
+  /* Секретный блок */
+  #secret {
+    margin-top: 50px;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    background: none; /* убран фон */
+    padding: 20px;
+    border-radius: 12px;
+    color: #000; /* читаемый текст */
+  }
 
-#stalker-text::before {
-  content: "🚨 ";
-}
+  #secret.show {
+    display: block;
+    opacity: 1;
+  }
+
+  #secret img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    margin-top: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  button.reveal {
+    padding: 10px 20px;
+    background: #ffa64d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+
+  button.reveal:hover {
+    background: #ff8c1a;
+  }
+
+  /* Фон с мандаринками */
+  .orange-theme {
+    background-color: #ffe5b4;
+    background-image: url('https://i.ibb.co/t3R8nFL/mandarin.png');
+    background-size: 100px;
+    background-repeat: repeat;
+    color: #000;
+  }
+
+  /* Красный сталкер-текст с иконкой */
+  #stalker-text {
+    display: none;
+    color: red;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  #stalker-text::before {
+    content: "🚨 ";
+  }
 </style>
 </head>
 <body>
 
-<h1>Где живёт лучшая девочка на свете?</h1>
-<p>Конечно же тут:</p>
-<p>
-  <a href="#" id="show-secret">X=4218123<br>Y=5912312</a>
-</p>
-<p>Нажмите, чтобы посмотреть</p>
-
-<div id="secret">
-  <p>Ты понимаешь, что это конфиденциальные данные?</p>
-  <button id="privacy-btn">Не нарушай личное пространство</button>
-  <p id="stalker-text">Ты и правда нажал долбанный сталкер</p>
-  <img src="https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=...&cb_client=maps_sv.tactile.gps&w=832&h=416&yaw=..." alt="Фото места">
+<div id="login">
+  <h1>🗝 Продолжи фразу:</h1>
+  <p><i>Шо за ... ?</i></p>
+  <input type="password" id="password" placeholder="Ответ">
+  <button onclick="checkPassword()">Проверить</button>
 </div>
 
-<script>
-document.getElementById("show-secret").addEventListener("click", function(e) {
-  e.preventDefault();
-  document.body.classList.add("orange-theme");
-  const secret = document.getElementById("secret");
-  secret.classList.add("show");
-});
-
-document.getElementById("privacy-btn").addEventListener("click", function() {
-  document.getElementById("stalker-text").style.display = "block";
-});
-</script>
-
-</body>
-</html>
+<div id="content">
+  <h1>Где живёт лучшая девочка на свете?</h1>
+  <p>Конечно же тут:</p>
+  <p class="clickable" onclick="showSecret
