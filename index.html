@@ -13,7 +13,6 @@
     color: #f0f0f0;
     transition: background 0.8s ease, color 0.8s ease;
   }
-
   h1, p {
     opacity: 0;
     transform: translateY(20px);
@@ -23,34 +22,28 @@
   p:nth-of-type(1) { animation-delay: 0.6s; }
   p:nth-of-type(2) { animation-delay: 0.9s; }
   p:nth-of-type(3) { animation-delay: 1.2s; }
-
   @keyframes slideUp {
     to { opacity: 1; transform: translateY(0); }
   }
-
   input, button {
     padding: 10px;
     font-size: 1em;
     border-radius: 6px;
     border: none;
   }
-
   #login button {
     background: #ff9800;
     color: white;
     cursor: pointer;
   }
-
   #content {
     display: none;
   }
-
   .clickable {
     cursor: pointer;
     text-decoration: underline;
     color: #ffb74d;
   }
-
   /* Секретный блок */
   #secret {
     margin-top: 50px;
@@ -65,12 +58,10 @@
     border-radius: 12px;
     color: #000;
   }
-
   #secret.show {
     display: block;
     opacity: 1;
   }
-
   /* Фон мандаринок внутри секретного блока */
   #secret.orange-bg {
     background-color: #ffe5b4;
@@ -80,7 +71,6 @@
     border-radius: 12px;
     padding: 20px;
   }
-
   #secret img {
     max-width: 100%;
     height: auto;
@@ -88,7 +78,6 @@
     box-shadow: 0 0 15px rgba(0,0,0,0.4);
     margin-top: 15px;
   }
-
   button.reveal {
     padding: 10px 20px;
     background: #ffa64d;
@@ -98,11 +87,9 @@
     cursor: pointer;
     font-size: 1em;
   }
-
   button.reveal:hover {
     background: #ff8c1a;
   }
-
   /* Фон с мандаринками для страницы */
   .orange-theme {
     background-color: #ffe5b4;
@@ -111,22 +98,21 @@
     background-repeat: repeat;
     color: #333;
   }
-
-  /* Красный сталкер-текст с эффектом стекла и иконкой */
+  /* Красный сталкер-текст с иконкой + эффект стекла */
   #stalker-text {
     display: none;
     color: red;
     font-weight: bold;
     font-size: 1.2em;
-    padding: 5px 10px;
-    background-color: rgba(0, 0, 0, 0.4); /* тёмный полупрозрачный фон */
-    backdrop-filter: blur(6px); /* размытие фона */
-    -webkit-backdrop-filter: blur(6px); /* поддержка для Safari */
-    border-radius: 6px;
-    text-shadow: 1px 1px 2px black; /* тень для читаемости */
-    border: 2px solid white; /* белая обводка */
-    display: inline-block;
-    margin-top: 10px;
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
+    -webkit-text-stroke: 0.5px white;
+    text-shadow: 0 0 4px rgba(0,0,0,0.7);
   }
   #stalker-text::before {
     content: "🚨 ";
@@ -134,7 +120,6 @@
 </style>
 </head>
 <body>
-
 <div id="login">
   <h1>🗝 Продолжи фразу:</h1>
   <p><i>Шо за ... ?</i></p>
@@ -147,7 +132,6 @@
   <p>Конечно же тут:</p>
   <p class="clickable" onclick="showSecret()">X=4218123<br>Y=5912312</p>
   <p>Нажмите, чтобы посмотреть</p>
-
   <div id="secret">
     <p>Ты понимаешь, что это конфиденциальные данные?</p>
     <button class="reveal" onclick="revealImage()">Не нарушай личное пространство</button>
@@ -166,19 +150,16 @@ function checkPassword() {
     alert("Неверно. Вызываю полицию");
   }
 }
-
 function showSecret() {
   document.body.classList.add('orange-theme');
   document.getElementById('secret').classList.add('show', 'orange-bg');
 }
-
 function revealImage() {
   document.getElementById('stalker-text').style.display = "block";
   const img = document.getElementById('secret-img');
   img.src = "https://files.catbox.moe/134i0f.jpg";
   img.style.display = "block";
 }
-
 // Глобальный обработчик для Enter
 document.addEventListener('keydown', function(event) {
   if (event.key === "Enter" && document.getElementById('login').style.display !== 'none') {
@@ -186,11 +167,5 @@ document.addEventListener('keydown', function(event) {
   }
 });
 </script>
-
-</body>
-</html>  }
-});
-</script>
-
 </body>
 </html>
