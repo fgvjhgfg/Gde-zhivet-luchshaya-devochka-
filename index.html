@@ -113,25 +113,28 @@
     margin-top: 15px;
   }
 
-  /* Красный сталкер-текст с белой обводкой и миганием */
+  /* Красный сталкер-текст с glass фоном */
   #stalker-text {
     display: none;
-    color: red;
+    font-size: 1.6em;
     font-weight: bold;
-    font-size: 1.2em;
-    text-shadow:
-      -1px -1px 0 white,
-       1px -1px 0 white,
-      -1px  1px 0 white,
-       1px  1px 0 white;
-    animation: blink 1.5s infinite ease-in-out;
+    text-align: center;
+    color: red;
+    animation: blink 1s infinite;
+    margin: 30px auto;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.4); /* полупрозрачный */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 10px;
+    width: fit-content;
   }
   #stalker-text::before {
     content: "🚨 ";
   }
   @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
   }
 </style>
 </head>
@@ -177,7 +180,14 @@ function showSecret() {
 function revealImage() {
   document.body.classList.add('orange-theme');
   document.getElementById('secret').classList.add('orange-bg');
+
+  // убираем светлую карточку
+  document.querySelector('.info-card').style.display = "none";
+
+  // показываем мигающую надпись
   document.getElementById('stalker-text').style.display = "block";
+
+  // показываем фото
   const img = document.getElementById('secret-img');
   img.src = "https://files.catbox.moe/134i0f.jpg";
   img.style.display = "block";
@@ -185,6 +195,13 @@ function revealImage() {
 
 // Обработка Enter
 document.addEventListener('keydown', function(event) {
+  if (event.key === "Enter" && document.getElementById('login').style.display !== 'none') {
+    checkPassword();
+  }
+});
+</script>
+</body>
+</html>document.addEventListener('keydown', function(event) {
   if (event.key === "Enter" && document.getElementById('login').style.display !== 'none') {
     checkPassword();
   }
