@@ -1,108 +1,43 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<title>Секрет</title>
-<style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #fff;
-    text-align: center;
-  }
-
-  /* Блок с вопросом */
-  #content {
-    padding: 40px;
-    background-color: #fff3e0;
-  }
-
-  .orange-theme {
-    background-color: #fff3e0;
-  }
-
-  .orange-bg {
-    background-image: url('https://i.imgur.com/3a2bYyH.png');
-    background-size: 100px;
-    background-repeat: repeat;
-  }
-
-  .frame {
-    display: inline-block;
-    border: 5px solid #ff7043;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-  }
-
-  /* Мигающий текст */
-  #stalker-text {
-    font-size: 28px;
-    color: red;
-    text-shadow: 
-      -1px -1px 0 #fff,
-       1px -1px 0 #fff,
-      -1px  1px 0 #fff,
-       1px  1px 0 #fff;
-    display: none;
-    animation: blink 0.4s infinite alternate;
-    margin-top: 20px;
-  }
-
-  @keyframes blink {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
-  }
-
-  /* Фото */
-  #secret-img {
-    display: none;
-    max-width: 100%;
-    margin-top: 20px;
-  }
-</style>
-</head>
-<body>
-
-<div id="content" class="orange-bg">
-  <div class="frame">
-    <h1>Где живёт лучшая девочка на свете?</h1>
-    <p>Конечно же тут.</p>
-    <p style="color:rgba(255,255,255,0.5)">+7 (***) ***-**-**</p>
-    <button onclick="revealImage()">Нажмите, чтобы посмотреть</button>
-  </div>
-</div>
-
-<!-- Мигающий текст -->
-<div id="stalker-text">Ты и правда нажал долбанный сталкер</div>
-
-<!-- Фото -->
-<img id="secret-img" src="" alt="Секретное фото">
-
 <script>
+function checkPassword() {
+  const pass = document.getElementById('password').value.trim().toLowerCase();
+  if (pass === "котик") {
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  } else {
+    alert("Неверно. Вызываю полицию");
+  }
+}
+
+function showSecret() {
+  document.getElementById('secret').classList.add('show');
+}
+
 function revealImage() {
   document.body.classList.add('orange-theme');
   document.getElementById('secret').classList.add('orange-bg');
 
-  // Скрываем всю верхнюю часть
-  const contentBlock = document.getElementById('content');
-  if (contentBlock) {
-    contentBlock.style.display = "none";
-  }
+  // убираем светлую карточку
+  document.querySelector('.info-card').style.display = "none";
 
-  // Показываем мигающий текст
-  const stalkerText = document.getElementById('stalker-text');
-  if (stalkerText) {
-    stalkerText.style.display = "block";
-  }
+  // убираем заголовок, подзаголовок и координаты
+  document.querySelectorAll('#content > h1, #content > p').forEach(el => {
+    el.style.display = "none";
+  });
 
-  // Показываем фото
+  // показываем мигающую надпись
+  document.getElementById('stalker-text').style.display = "block";
+
+  // показываем фото
   const img = document.getElementById('secret-img');
-  if (img) {
-    img.src = "https://files.catbox.moe/134i0f.jpg";
-    img.style.display = "block";
-  }
+  img.src = "https://files.catbox.moe/134i0f.jpg";
+  img.style.display = "block";
 }
-</script>
 
-</body>
-</html>
+// Обработка Enter
+document.addEventListener('keydown', function(event) {
+  if (event.key === "Enter" && document.getElementById('login').style.display !== 'none') {
+    checkPassword();
+  }
+});
+</script>
