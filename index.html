@@ -10,35 +10,10 @@
       text-align: center;
       padding-top: 100px;
       margin: 0;
-      transition: background 0.6s ease, color 0.6s ease;
-    }
-
-    /* Тёмная тема по умолчанию */
-    body.dark {
       background: #121212;
-      color: #f5f5f5;
+      color: #f0f0f0;
+      animation: fadeIn 1.2s ease-in-out;
     }
-    input, button {
-      padding: 10px 15px;
-      border-radius: 8px;
-      border: none;
-      font-size: 1em;
-    }
-    input {
-      background: #1e1e1e;
-      color: white;
-      border: 1px solid #333;
-    }
-    button {
-      background: #ff9800;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #e68a00;
-    }
-
-    /* Плавное появление */
     h1, p {
       opacity: 0;
       transform: translateY(20px);
@@ -49,65 +24,63 @@
     p:nth-of-type(2) { animation-delay: 0.9s; }
     p:nth-of-type(3) { animation-delay: 1.2s; }
 
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
     @keyframes slideUp {
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Секретный блок */
+    /* Когда фон мандариновый */
+    body.orange-bg {
+      background: #ffe5b4 url('https://i.ibb.co/VNYbf2S/mandarin.png') repeat-y left center,
+                  #ffe5b4 url('https://i.ibb.co/VNYbf2S/mandarin.png') repeat-y right center;
+      background-size: 80px auto, 80px auto;
+      color: #222;
+    }
+
     #secret {
       margin-top: 50px;
       display: none;
       opacity: 0;
       transition: opacity 0.8s ease-in-out;
-      padding: 20px;
-      border-radius: 12px;
-      background: #ffe5c2;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
     #secret.show {
       display: block;
       opacity: 1;
     }
     #secret img {
-      max-width: 100%;
-      border-radius: 12px;
+      max-width: 80%;
+      border-radius: 20px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      margin-top: 10px;
+      margin-top: 20px;
     }
-
     .clickable {
       cursor: pointer;
       text-decoration: underline;
       color: #ffa64d;
     }
-
     button.reveal {
-      background: #ffa64d;
-      border: none;
-      color: white;
-      font-size: 1em;
-      cursor: pointer;
       padding: 10px 20px;
+      background: #ffa64d;
+      color: white;
+      border: none;
       border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
     }
     button.reveal:hover {
       background: #ff8c1a;
     }
-
-    /* Фон с мандаринками по бокам */
-    body.orange-bg {
-      background: url('https://i.ibb.co/vL3nC2p/mandarin.png') left repeat-y,
-                  url('https://i.ibb.co/vL3nC2p/mandarin.png') right repeat-y,
-                  #fff5ec;
-      background-size: 80px auto, 80px auto, cover;
-      color: black;
+    .stalker-text {
+      font-weight: bold;
+      margin-top: 10px;
+      color: #d26e00;
     }
   </style>
 </head>
-<body class="dark">
+<body>
 
 <div id="login">
   <h1>🗝 Продолжи фразу:</h1>
@@ -125,9 +98,7 @@
   <div id="secret">
     <p>Ты понимаешь, что это конфиденциальные данные?</p>
     <button class="reveal" onclick="revealImage()">Не нарушай личное пространство</button>
-    <p id="stalker-text" style="display:none; font-weight:bold; color:#d26e00;">
-      Ты и правда нажал долбанный сталкер
-    </p>
+    <div class="stalker-text" id="stalker-text" style="display:none;">Ты и правда нажал долбанный сталкер</div>
     <img src="" alt="секрет" id="secret-img" style="display:none;">
   </div>
 </div>
@@ -144,16 +115,15 @@
   }
 
   function showSecret() {
-    document.body.classList.remove('dark');
-    document.body.classList.add('orange-bg');
+    document.body.classList.add('orange-bg'); // Меняем фон на мандариновый
     document.getElementById('secret').classList.add('show');
   }
 
   function revealImage() {
-    document.getElementById('stalker-text').style.display = "block";
     const img = document.getElementById('secret-img');
     img.src = "https://files.catbox.moe/134i0f.jpg";
     img.style.display = "block";
+    document.getElementById('stalker-text').style.display = "block";
   }
 </script>
 
