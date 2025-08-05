@@ -98,12 +98,19 @@
     background-repeat: repeat;
     color: #333;
   }
-  /* Красный сталкер-текст с тонкой белой обводкой */
+  /* Красный сталкер-текст с полупрозрачным фоном и белой обводкой */
   #stalker-text {
     display: none;
     color: red;
     font-weight: bold;
     font-size: 1.2em;
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
     text-shadow:
       -1px -1px 0 white,
        1px -1px 0 white,
