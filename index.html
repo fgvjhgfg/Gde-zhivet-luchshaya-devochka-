@@ -31,16 +31,35 @@
     #secret {
       margin-top: 50px;
       display: none;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+    #secret.show {
+      display: block;
+      opacity: 1;
     }
     #secret img {
       max-width: 80%;
       border-radius: 20px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      margin-top: 20px;
     }
     .clickable {
       cursor: pointer;
       text-decoration: underline;
       color: #d26e00;
+    }
+    button.reveal {
+      padding: 10px 20px;
+      background: #ffa64d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    button.reveal:hover {
+      background: #ff8c1a;
     }
   </style>
 </head>
@@ -60,8 +79,9 @@
   <p>Точка её уюта и любви 🧡</p>
 
   <div id="secret">
-    <p>🥹 Ты правда нажала... ну ты мандаринка!</p>
-    <img src="https://files.catbox.moe/134i0f.jpg" alt="секрет">
+    <p>Ты и правда нажал, долбаный сталкер.<br>Конечно, тут</p>
+    <button class="reveal" onclick="revealImage()">Нажми, чтобы посмотреть</button>
+    <img src="" alt="секрет" id="secret-img" style="display:none;">
   </div>
 </div>
 
@@ -77,7 +97,13 @@
   }
 
   function showSecret() {
-    document.getElementById('secret').style.display = 'block';
+    document.getElementById('secret').classList.add('show');
+  }
+
+  function revealImage() {
+    const img = document.getElementById('secret-img');
+    img.src = "https://files.catbox.moe/134i0f.jpg";
+    img.style.display = "block";
   }
 </script>
 
