@@ -152,7 +152,7 @@
 <div id="content">
   <h1>Где живёт лучшая девочка на свете?</h1>
   <p>Конечно же тут:</p>
-  <p class="clickable" onclick="showSecret()">X=6179634<br>Y=7438992</p>
+  <p class="clickable" onclick="showSecret()">X=4218123<br>Y=5912312</p>
   <p>Нажмите, чтобы посмотреть</p>
 
   <div id="secret">
@@ -187,8 +187,8 @@ function revealImage() {
   // убираем светлую карточку
   document.querySelector('.info-card').style.display = "none";
 
-  // убираем заголовок, подзаголовок, координаты и подпись
-  document.querySelectorAll('#content > h1, #content > p:not(#secret p)').forEach(el => {
+  // убираем заголовок, подзаголовок и координаты
+  document.querySelectorAll('#content > h1, #content > p.clickable, #content > p:nth-of-type(2), #content > p:nth-of-type(4)').forEach(el => {
     el.style.display = "none";
   });
 
