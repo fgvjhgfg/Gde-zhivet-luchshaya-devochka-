@@ -43,7 +43,6 @@
     color: #ffb74d;
   }
 
-  /* Секретный блок */
   #secret {
     margin-top: 50px;
     display: none;
@@ -61,7 +60,6 @@
     opacity: 1;
   }
 
-  /* Светлая карточка */
   .info-card {
     background: #fff;
     color: #000;
@@ -87,7 +85,6 @@
     background: #ff8c1a;
   }
 
-  /* Мандариновый фон */
   .orange-theme {
     background-color: #ffe5b4;
     background-image: url('https://files.catbox.moe/psmil7.png');
@@ -103,7 +100,6 @@
     padding: 20px;
   }
 
-  /* Фото */
   #secret img {
     max-width: 100%;
     height: auto;
@@ -112,14 +108,13 @@
     margin-top: 15px;
   }
 
-  /* Сталкер-текст */
   #stalker-text {
     display: none;
-    font-size: 1.6em;
+    font-size: 1.8em;
     font-weight: bold;
     text-align: center;
     margin: 30px auto;
-    padding: 10px 20px;
+    padding: 12px 25px;
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
@@ -133,8 +128,9 @@
        1px -1px 0 white,
       -1px  1px 0 white,
        1px  1px 0 white;
-    animation: fadeText 1.2s infinite;
+    animation: fadeText 0.8s infinite;
   }
+
   @keyframes fadeText {
     0%, 100% { opacity: 0; }
     50% { opacity: 1; }
@@ -152,11 +148,11 @@
 <div id="content">
   <h1>Где живёт лучшая девочка на свете?</h1>
   <p>Конечно же тут:</p>
-  <p class="clickable" onclick="showSecret()">X=6179634<br>Y=7438992</p>
+  <p class="clickable" onclick="showSecret()">X=4218123<br>Y=5912312</p>
   <p>Нажмите, чтобы посмотреть</p>
 
   <div id="secret">
-    <div class="info-card">
+    <div class="info-card" id="info-card">
       <p>Вы осознаёте, что это конфиденциальная информация?</p>
       <button onclick="revealImage()">Пожалуйста, не вторгайтесь в частную жизнь</button>
     </div>
@@ -184,24 +180,19 @@ function revealImage() {
   document.body.classList.add('orange-theme');
   document.getElementById('secret').classList.add('orange-bg');
 
-  // убираем светлую карточку
-  document.querySelector('.info-card').style.display = "none";
+  // Убрать карточку
+  document.getElementById('info-card').style.display = "none";
 
-  // убираем заголовок, подзаголовок и координаты
-  document.querySelectorAll('#content > h1, #content > p.clickable, #content > p:nth-of-type(2), #content > p:nth-of-type(4)').forEach(el => {
-    el.style.display = "none";
-  });
-
-  // показываем мигающую надпись
+  // Показать надпись сталкера
   document.getElementById('stalker-text').style.display = "block";
 
-  // показываем фото
+  // Показать фото
   const img = document.getElementById('secret-img');
   img.src = "https://files.catbox.moe/134i0f.jpg";
   img.style.display = "block";
 }
 
-// Обработка Enter
+// Enter для пароля
 document.addEventListener('keydown', function(event) {
   if (event.key === "Enter" && document.getElementById('login').style.display !== 'none') {
     checkPassword();
