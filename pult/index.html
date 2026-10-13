@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f8f2e9">
+<meta name="pult-app" content="anechka-pult">
+<title>Пульт для Анечки ♡</title>
+<style>
+  :root { --bg:#f8f2e9; --ink:#332823; --muted:#8c7d72; --accent:#d45569; --paper:#fffaf3; --border:#493830; --yellow:#f6d98a; }
+  * { box-sizing:border-box; }
+  html { height:100%; }
+  body { margin:0; min-height:100%; background:var(--bg); color:var(--ink); font-family:ui-rounded, "Trebuchet MS", "Arial Rounded MT Bold", system-ui, sans-serif; }
+  body::before { content:""; pointer-events:none; position:fixed; inset:0; background-image:radial-gradient(#b9a695 0.55px,transparent 0.55px); background-size:8px 8px; opacity:.12; }
+  .wrap { width:min(100% - 32px, 470px); margin:0 auto; padding: max(36px, env(safe-area-inset-top)) 0 max(38px,env(safe-area-inset-bottom)); position:relative; }
+  .micro { font-size:10px; letter-spacing:2px; text-transform:uppercase; font-weight:800; color:var(--muted); }
+  header { padding:0 6px; }
+  .topline { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .seal { background:#e9ded1; border:1px solid #c8b6a5; border-radius:999px; padding:7px 10px; font-size:10px; letter-spacing:1px; color:#685448; font-weight:800; white-space:nowrap; }
+  h1 { max-width:380px; margin:22px 0 10px; font-size:clamp(35px,9vw,48px); line-height:.99; letter-spacing:-1.8px; font-weight:950; }
+  h1 em { color:var(--accent); font-style:normal; }
+  .intro { font-size:14px; line-height:1.5; margin:0 0 27px; max-width:345px; color:#695b51; }
+  .device { background:#efe2d2; border:2px solid var(--border); border-radius:25px; padding:17px; box-shadow:5px 6px 0 #493830; position:relative; }
+  .device::before { content:""; display:block; width:64px; height:4px; border-radius:99px; background:#b8a394; margin:1px auto 16px; }
+  .device-top { display:flex; justify-content:space-between; gap:8px; align-items:center; margin-bottom:12px; }
+  .status { display:flex; align-items:center; gap:7px; color:#6f6257; font-size:10px; font-weight:800; letter-spacing:.9px; }
+  .led { display:inline-block; width:8px; height:8px; border-radius:50%; background:#74a379; box-shadow:0 0 0 3px #74a3792b; }
+  .number { font-size:10px; color:#847467; font-weight:800; letter-spacing:.7px; }
+  .screen { background:#fffaf3; border:2px solid #554439; border-radius:14px; padding:19px 17px; min-height:156px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:inset 0 3px 0 #ebdfd4; overflow:hidden; }
+  .screen small { color:#998578; font-size:10px; letter-spacing:1.8px; font-weight:900; }
+  .screen p { font-size:clamp(18px,5.2vw,24px); line-height:1.2; margin:11px 0; font-weight:800; letter-spacing:-.45px; }
+  .cursor { color:var(--accent); font-size:14px; font-weight:800; }
+  .counters { margin:13px 0 17px; display:flex; justify-content:space-between; font-size:11px; font-weight:800; color:#796557; }
+  .counters strong { color:#4d3a30; font-variant-numeric:tabular-nums; }
+  .controls { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+  .action { min-height:82px; border:2px solid var(--border); border-radius:15px; background:var(--paper); color:var(--ink); font-family:inherit; font-weight:900; font-size:16px; display:flex; gap:4px; flex-direction:column; justify-content:center; align-items:center; cursor:pointer; box-shadow:0 4px 0 #554439; transition:transform .07s, box-shadow .07s, background .12s; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+  .action:active { transform:translateY(3px); box-shadow:0 1px 0 #554439; }
+  .action .symbol { font-size:24px; line-height:1; font-weight:400; }
+  .action.pink { background:#f5c9cd; }
+  .action.yellow { background:#f6d98a; }
+  .action.peach { background:#f5d6b8; }
+  .action.mint { background:#dbe5cd; }
+  .action:focus-visible,.secret-btn:focus-visible,.again:focus-visible { outline:3px solid var(--accent); outline-offset:4px; }
+  .secret-area { margin:25px 0 0; min-height:70px; }
+  .note { font-size:12px; color:var(--muted); line-height:1.5; text-align:center; margin:0; }
+  .secret-btn { display:none; width:100%; border:2px dashed var(--accent); background:#ffe5e3; color:#a52e48; border-radius:15px; padding:17px 12px; font:900 14px inherit; cursor:pointer; animation:up .35s both; }
+  .secret-btn.visible { display:block; }
+  .card { display:none; padding:23px 22px; background:#fff9ed; border:2px solid #493830; border-radius:18px; box-shadow:4px 4px 0 #493830; text-align:left; animation:up .45s both; }
+  .card.visible { display:block; }
+  .card .micro { color:var(--accent); }
+  .card h2 { font-size:26px; margin:12px 0; line-height:1.1; }
+  .card p { font-size:16px; line-height:1.55; margin:0 0 19px; }
+  .again { background:transparent; border:0; color:#bd465d; font:900 13px inherit; padding:0; cursor:pointer; }
+  footer { padding-top:28px; color:#9e8c7f; font-size:11px; text-align:center; line-height:1.5; }
+  .floaty { position:fixed; pointer-events:none; z-index:20; font-size:23px; animation:fly 1.2s ease-out forwards; user-select:none; }
+  @keyframes fly { from { transform:translate(-50%, 0) rotate(-12deg) scale(.7); opacity:1; } to { transform:translate(calc(-50% + var(--dx)), -150px) rotate(16deg) scale(1.4); opacity:0; } }
+  @keyframes up { from { transform:translateY(8px);opacity:0; } to { transform:translateY(0);opacity:1; } }
+  @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <div class="topline"><span class="micro">Экземпляр № 001</span><span class="seal">Только для Анечки</span></div>
+    <h1>Пульт<br><em>от меня.</em></h1>
+    <p class="intro">Тебе выдали официальное устройство для управления одним очень влюблённым дурачком. Пользуйся без ограничений.</p>
+  </header>
+  <section class="device" aria-label="Пульт управления">
+    <div class="device-top"><span class="status"><span class="led"></span> НА СВЯЗИ</span><span class="number">модель: твой</span></div>
+    <div class="screen" aria-live="polite" aria-atomic="true">
+      <small id="screen-label">ОЖИДАНИЕ КОМАНДЫ</small>
+      <p id="message">Ну что, Анечка? Я весь твой. Нажимай.</p>
+      <span class="cursor" id="cursor">♡</span>
+    </div>
+    <div class="counters"><span>КОМАНД ВЫПОЛНЕНО: <strong id="counter">0</strong></span><span>СБОЕВ: <strong>0</strong></span></div>
+    <div class="controls">
+      <button class="action yellow" data-action="call"><span class="symbol">↗</span><span>Ко мне!</span></button>
+      <button class="action pink" data-action="hug"><span class="symbol">♡</span><span>Обнять</span></button>
+      <button class="action peach" data-action="kiss"><span class="symbol">✳</span><span>Целовать</span></button>
+      <button class="action mint" data-action="pet"><span class="symbol">〜</span><span>Погладить</span></button>
+    </div>
+  </section>
+  <section class="secret-area" aria-live="polite">
+    <p id="locked" class="note">У пульта есть одна секретная функция.<br>Она откроется сама, когда захочет.</p>
+    <button id="unlock" type="button" class="secret-btn">✉ Открыть секретный отсек</button>
+    <div id="reveal" class="card">
+      <span class="micro">Секретный отсек открыт</span>
+      <h2>Маленький секрет.</h2>
+      <p>Вообще-то пульт ни на что не влияет. Я и без него хочу тебя обнимать, целовать и прибегать к тебе по первому зову. Просто теперь у тебя есть кнопочки. ❤️</p>
+      <button class="again" type="button" id="close">Спрятать обратно ↑</button>
+    </div>
+  </section>
+  <footer>Сделано для одной-единственной девочки. Гарантия бессрочная.</footer>
+</main>
+<script>
+(function () {
+  'use strict';
+  // Снимок исходного HTML до любых изменений страницы — для автообновления кода.
+  let initialMarkup='';
+  let lines = {
+    call: ['Уже бегу. Даже тапки не нашёл.', 'Я тут! Можно на ручки?', 'Прибежал. Какие будут указания?', 'Тут я. Обнимемся?', 'Звала? Я уже соскучился.'],
+    hug: ['Иди сюда, моя хорошая.', 'Обнял. Отпускать пока не собираюсь.', 'Ещё чуть-чуть полежим так?', 'Всё. Мы теперь официально слиплись.', 'Иди ко мне. Сейчас затискаю.'],
+    kiss: ['Цём в носик.', 'И ещё один. Этот контрольный.', 'Так, щёчки тоже надо зацеловать.', 'Мало. Давай ещё поцелуйчик.', 'Муа. И ещё муа.'],
+    pet: ['Мурр. Продолжай, пожалуйста.', 'Всё, я растаял.', 'Буду хорошим. Честно-честно.', 'А можно ещё за ушком?', 'Я теперь окончательно ручной.']
+  };
+  let labels = {call:'ПРИБЫТИЕ ВЫПОЛНЕНО',hug:'РЕЖИМ ОБНИМАШЕК',kiss:'ПОЦЕЛУЙ ДОСТАВЛЕН',pet:'РЕЖИМ КОТИКА'};
+  const counters = { call:0, hug:0, kiss:0, pet:0 };
+  let count=0;
+  let unlockAt=6;
+  const message=document.getElementById('message');
+  const screenLabel=document.getElementById('screen-label');
+  const displayCount=document.getElementById('counter');
+  const unlock=document.getElementById('unlock');
+  const locked=document.getElementById('locked');
+  const reveal=document.getElementById('reveal');
+  const cursor=document.getElementById('cursor');
+  function hearts(button, kind) {
+    const rect=button.getBoundingClientRect();
+    const marks=kind==='kiss'?['♡','♥','♡']:kind==='pet'?['✿','♡','✿']:['♡','♡','♥'];
+    for(let i=0;i<3;i++) {
+      const s=document.createElement('span'); s.className='floaty'; s.textContent=marks[i];
+      s.style.color=i===1?'#e27788':'#b94b63';
+      s.style.left=(rect.left+rect.width*(.3+i*.2))+'px';
+      s.style.top=(rect.top+rect.height*.3)+'px';
+      s.style.setProperty('--dx',((i-1)*38)+'px');
+      s.style.animationDelay=(i*.09)+'s';
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(),1600);
+    }
+  }
+  document.querySelectorAll('[data-action]').forEach(button=>{
+    button.addEventListener('click',()=>{
+      const kind=button.dataset.action;
+      const next=lines[kind][counters[kind] % lines[kind].length];
+      counters[kind]++; count++;
+      message.textContent=next; screenLabel.textContent=labels[kind];
+      displayCount.textContent=String(count);
+      cursor.textContent=kind==='pet'?'✿':'♡';
+      hearts(button,kind);
+      saveState();
+      try { if(navigator.vibrate) navigator.vibrate(18); } catch(e) {}
+      if(count>=unlockAt && !reveal.classList.contains('visible')) {
+        unlock.classList.add('visible'); locked.style.display='none';
+      }
+    });
+  });
+  unlock.addEventListener('click',()=>{
+    unlock.classList.remove('visible'); reveal.classList.add('visible');
+    message.textContent='Ой. Ты нашла секрет.'; screenLabel.textContent='СЕКРЕТ РАСКРЫТ';
+    saveState();
+    reveal.scrollIntoView({block:'nearest',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+  });
+  document.getElementById('close').addEventListener('click',()=>{
+    reveal.classList.remove('visible'); unlock.classList.add('visible');
+    saveState();
+  });
+
+
+  // Прогресс переживает автоматические обновления и закрытие вкладки.
+  const STORAGE_KEY='anechka.pult.progress.v1';
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY,JSON.stringify({
+        count, counters, message:message.textContent,
+        screenLabel:screenLabel.textContent,cursor:cursor.textContent,
+        secretOpen:reveal.classList.contains('visible')
+      }));
+    } catch (_) { /* В приватном режиме хранилище бывает недоступно. */ }
+  }
+  function restoreState() {
+    try {
+      const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');
+      if (!data || typeof data!=='object') return;
+      if(Number.isSafeInteger(data.count) && data.count>=0) count=Math.min(data.count,1e9);
+      for (const key of Object.keys(counters)) {
+        const v=data.counters && data.counters[key];
+        if(Number.isSafeInteger(v) && v>=0) counters[key]=Math.min(v,1e9);
+      }
+      displayCount.textContent=String(count);
+      if(typeof data.message==='string') message.textContent=data.message.slice(0,400);
+      if(typeof data.screenLabel==='string') screenLabel.textContent=data.screenLabel.slice(0,70);
+      if(typeof data.cursor==='string') cursor.textContent=data.cursor.slice(0,4);
+      if(data.secretOpen===true) {
+        reveal.classList.add('visible'); locked.style.display='none';
+      } else if(count>=unlockAt) {
+        unlock.classList.add('visible'); locked.style.display='none';
+      }
+    } catch (_) {}
+  }
+  // Контент обновляется на лету: можно менять ответы и тайные сообщения,
+  // пока страница уже открыта, без перезагрузки и без новых кнопок.
+  const contentUrl = new URL('./content.json', document.baseURI);
+  const pageUrl = new URL('./index.html', document.baseURI);
+  let lastContent='';
+  let checkRunning=false;
+  let lastCheckAt=0;
+  function updateText(selector,value,maxLength=1000) {
+    if(typeof value!=='string' || value.length>maxLength) return;
+    const node=document.querySelector(selector);
+    if(node) node.textContent=value;
+  }
+  function applyContent(data) {
+    if(!data || typeof data!=='object' || Array.isArray(data)) return;
+    updateText('.intro',data.intro,1000);
+    updateText('.seal',data.seal,100);
+    updateText('.card h2',data.secretTitle,100);
+    updateText('.card p',data.secretText,5000);
+    updateText('footer',data.footer,600);
+    if(data.responses && typeof data.responses==='object') {
+      for(const key of Object.keys(lines)) {
+        const options=data.responses[key];
+        if(Array.isArray(options) && options.length>0 && options.length<=100 &&
+           options.every(s=>typeof s==='string' && s.length<=400)) {
+          lines[key]=options;
+        }
+      }
+    }
+    if(data.labels && typeof data.labels==='object') {
+      for(const key of Object.keys(labels)) {
+        const label=data.labels[key];
+        if(typeof label==='string' && label.length<=90) labels[key]=label;
+      }
+    }
+    if(Number.isSafeInteger(data.unlockAfter) && data.unlockAfter>=1 && data.unlockAfter<=1000) {
+      unlockAt=data.unlockAfter;
+    }
+    if(count>=unlockAt && !reveal.classList.contains('visible')) {
+      unlock.classList.add('visible'); locked.style.display='none';
+    }
+  }
+  async function refreshContent() {
+    const u=new URL(contentUrl);
+    u.searchParams.set('_ts',String(Date.now()));
+    try {
+      const res=await fetch(u.href,{cache:'no-store'});
+      if(!res.ok) return;
+      const data=await res.json();
+      if(!data || typeof data!=='object' || Array.isArray(data)) return;
+      const normalized=JSON.stringify(data);
+      if(normalized!==lastContent) {
+        applyContent(data);
+        lastContent=normalized;
+      }
+    } catch (_) { /* Нет сети — сохраняем текущие фразы. */ }
+  }
+
+  // Изменился сам index.html: скачиваем новый файл и переключаемся на него.
+  // Не требуется вручную менять номер версии или редактировать манифест.
+  async function refreshCode() {
+    const u=new URL(pageUrl);
+    u.searchParams.set('_check',String(Date.now()));
+    try {
+      const res=await fetch(u.href,{cache:'no-store'});
+      if(!res.ok) return;
+      const html=await res.text();
+      const parsed=new DOMParser().parseFromString(html,'text/html');
+      if(parsed.querySelector('meta[name="pult-app"]')?.content!=='anechka-pult') return;
+      if(parsed.documentElement.outerHTML!==initialMarkup) {
+        saveState();
+        const next=new URL(pageUrl);
+        next.searchParams.set('_updated',String(Date.now()));
+        location.replace(next.href);
+      }
+    } catch (_) { /* Не прерываем работу приложения из-за сети. */ }
+  }
+  async function checkUpdates(force=false) {
+    if(checkRunning || (!force && Date.now()-lastCheckAt<15000)) return;
+    if(location.protocol==='file:') return; // Локальный файл не способен опрашивать хостинг.
+    if(navigator.onLine===false) return;
+    lastCheckAt=Date.now();
+    checkRunning=true;
+    try {
+      await refreshContent();
+      await refreshCode();
+    } finally { checkRunning=false; }
+  }
+  // Начальная загрузка контента, затем проверка каждые 40 секунд;
+  // вернувшись в браузер, Анечка сразу получает последние изменения.
+  function initializeApp() {
+    initialMarkup=document.documentElement.outerHTML; // Весь документ уже разобран браузером.
+    restoreState();
+    if(location.protocol!=='file:' && (location.protocol==='https:' || location.protocol==='http:')) {
+    checkUpdates(true);
+    setInterval(()=>checkUpdates(),40_000);
+    window.addEventListener('focus',()=>checkUpdates());
+    document.addEventListener('visibilitychange',()=>{
+      if(!document.hidden) checkUpdates();
+    });
+    window.addEventListener('online',()=>checkUpdates(true));
+    }
+  }
+  if(document.readyState==='loading') {
+    document.addEventListener('DOMContentLoaded',initializeApp,{once:true});
+  } else {
+    initializeApp();
+  }
+})();
+</script>
+</body>
+</html>
