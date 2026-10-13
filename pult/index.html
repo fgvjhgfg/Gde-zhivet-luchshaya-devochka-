@@ -194,6 +194,7 @@
   let lastContent='';
   let checkRunning=false;
   let lastCheckAt=0;
+  const UPDATE_INTERVAL_MS=60*60*1000; // Один час
   function updateText(selector,value,maxLength=1000) {
     if(typeof value!=='string' || value.length>maxLength) return;
     const node=document.querySelector(selector);
@@ -264,7 +265,7 @@
     } catch (_) { /* Не прерываем работу приложения из-за сети. */ }
   }
   async function checkUpdates(force=false) {
-    if(checkRunning || (!force && Date.now()-lastCheckAt<15000)) return;
+    if(checkRunning || (!force && Date.now()-lastCheckAt<UPDATE_INTERVAL_MS)) return;
     if(location.protocol==='file:') return; // Локальный файл не способен опрашивать хостинг.
     if(navigator.onLine===false) return;
     lastCheckAt=Date.now();
@@ -274,19 +275,20 @@
       await refreshCode();
     } finally { checkRunning=false; }
   }
-  // Начальная загрузка контента, затем проверка каждые 40 секунд;
-  // вернувшись в браузер, Анечка сразу получает последние изменения.
+  // При каждом новом открытии проверяем сразу, затем не чаще одного раза в час.
+  // Возврат в открытую вкладку не создаёт лишних запросов.
   function initializeApp() {
     initialMarkup=document.documentElement.outerHTML; // Весь документ уже разобран браузером.
     restoreState();
     if(location.protocol!=='file:' && (location.protocol==='https:' || location.protocol==='http:')) {
     checkUpdates(true);
-    setInterval(()=>checkUpdates(),40_000);
+    setInterval(()=>checkUpdates(),UPDATE_INTERVAL_MS);
     window.addEventListener('focus',()=>checkUpdates());
     document.addEventListener('visibilitychange',()=>{
       if(!document.hidden) checkUpdates();
     });
-    window.addEventListener('online',()=>checkUpdates(true));
+    window.addEventListener('online',()=>checkUpdates());
+    window.addEventListener('pageshow',event=>{ if(event.persisted) checkUpdates(true); });
     }
   }
   if(document.readyState==='loading') {
